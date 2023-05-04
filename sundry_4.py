@@ -32,6 +32,20 @@ ivan = Person()
 ivan.name = 'Ivan'
 
 print('Bob name =', bob.name)
+print(bob.__dict__)
+
+
+oliver = Cat()
+oliver.name = 'Oliver'
+
+print(oliver.name)
+
+leo = Cat()
+leo.name = 'Leo'
+
+print('Leo name =', leo.name)
+print(leo.__dict__)
+
 
 
 class CustomLabel:
@@ -44,6 +58,6 @@ class CustomLabel:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    # можно так
-    # def config(self, **kwargs):
-    #     self.__dict__.update(**kwargs)
+    # или можно так
+    def config(self, **kwargs):
+        self.__dict__.update(**kwargs)
