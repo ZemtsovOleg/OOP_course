@@ -14,10 +14,32 @@ k.email = 'prince@still@.wait'  # ErrorMail:prince@still@.wait
 k.email = 'prince@still.wait'
 print(k.email)  # prince@still.wait '''
 
-# Напишите определение класса UserMail       
+# Напишите определение класса UserMail
 
+
+class UserMail:
+
+    def __init__(self, login: str, email: str) -> None:
+        self.login = login
+        self.__email = email
+
+    def get_email(self) -> str:
+        return self.__email
+
+    def set_email(self, email: str) -> None:
+        if isinstance(email, str) and email.count('@') == 1 and email[email.index('@'):].find('.') > 0:
+            self.__email = email
+        else:
+            print(f'ErrorMail:{email}')
+
+    email = property(fget=get_email, fset=set_email)
+
+# или проверка через модуль re
+# regex = r'\w*[@]\w*[.]\w*'
+# if isinstance(new_email, str) and re.fullmatch(regex, new_email):
 
 # Ниже код для проверки методов класса UserMail
+
 
 jim = UserMail("aka47", 'hello@com.org')
 assert jim.login == "aka47"
