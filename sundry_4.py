@@ -61,3 +61,8 @@ class CustomLabel:
     # или можно так
     def config(self, **kwargs):
         self.__dict__.update(**kwargs)
+
+with open('easy_passwords.txt', encoding='utf-8') as f:
+    easy_passwords = f.read().split()
+
+print('QwerTy123' in easy_passwords)
