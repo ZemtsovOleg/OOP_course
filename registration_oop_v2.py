@@ -22,9 +22,6 @@ def __init__(self, логин, пароль):
 
 # Напишите определение класса Registration
 
-import string
-with open('easy_passwords.txt', encoding='utf-8') as f:
-    easy_passwords = f.read().split()
 
 class Registration:
 
@@ -33,7 +30,7 @@ class Registration:
         self.password = password
 
     @property
-    def login(self):
+    def login(self) -> str:
         return self.__login
 
     @login.setter
@@ -48,44 +45,50 @@ class Registration:
             self.__login = login
 
     @property
-    def password(self):
+    def password(self) -> str:
         return self.__password
 
     @staticmethod
-    def is_include_digit(password):
-        return any(map(str.isdigit, password))
+    def is_include_digit(password: str) -> bool:
+        return not any(map(str.isdigit, password))
 
     @staticmethod
-    def is_include_all_register(password):
-        return any((password.islower(), password.isupper()))
+    def is_include_all_register(password: str) -> bool:
+        return any((password.isdigit(), password.islower(), password.isupper()))
 
     @staticmethod
-    def is_include_only_latin(password):
-        return all(l in string.ascii_letters for l in password)
+    def is_include_only_latin(password: str) -> bool:
+        return not password.isascii()
 
     @staticmethod
-    def check_password_dictionary(password):
-        return password in easy_passwords
+    def check_password_dictionary(password: str) -> bool:
+        with open('easy_passwords.txt', encoding='utf-8') as easy_passwords:
+            return password in easy_passwords.read().split()
 
     @password.setter
     def password(self, password):
         if not isinstance(password, str):
-            TypeError("Пароль должен быть строкой")
-        if 5 > len(password) > 13:
-            ValueError('Пароль должен быть длиннее 4 и меньше 12 символов')
+            raise TypeError("Пароль должен быть строкой")
+        if not 4 < len(password) < 12:
+            raise ValueError(
+                'Пароль должен быть длиннее 4 и меньше 12 символов')
         if self.is_include_digit(password):
-            ValueError('Пароль должен содержать хотя бы одну цифру')
+            raise ValueError('Пароль должен содержать хотя бы одну цифру')
         if self.is_include_all_register(password):
-            ValueError('Пароль должен содержать хотя бы один символ верхнего и нижнего регистра')
+            raise ValueError(
+                'Пароль должен содержать хотя бы один символ верхнего и нижнего регистра')
         if self.is_include_only_latin(password):
-            ValueError('Пароль должен содержать только латинский алфавит')
+            raise ValueError(
+                'Пароль должен содержать только латинский алфавит')
         if self.check_password_dictionary(password):
-            ValueError('Ваш пароль содержится в списке самых легких')
+            raise ValueError('Ваш пароль содержится в списке самых легких')
         else:
             self.__password = password
 
 
 # Ниже код для проверки класса Registration
+
+
 try:
     s2 = Registration("fga", "asd12")
 except ValueError as e:
@@ -129,69 +132,69 @@ else:
         "QwerTy123 хранится в словаре паролей, как его можно было сохранить?")
 
 
-# try:
-#     s2.password = "KissasSAd1f"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError(
-#         "KissasSAd1f хранится в словаре паролей, как его можно было сохранить?")
+try:
+    s2.password = "KissasSAd1f"
+except ValueError as e:
+    pass
+else:
+    raise ValueError(
+        "KissasSAd1f хранится в словаре паролей, как его можно было сохранить?")
 
-# try:
-#     s2.password = "124244242"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError("124244242 пароль НЕОЧЕНЬ, как его можно было сохранить?")
+try:
+    s2.password = "124244242"
+except ValueError as e:
+    pass
+else:
+    raise ValueError("124244242 пароль НЕОЧЕНЬ, как его можно было сохранить?")
 
-# try:
-#     s2.password = "RYIWUhjkdbfjfgdsffds"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError(
-#         "RYIWUhjkdbfjfgdsffds пароль НЕОЧЕНЬ, как его можно было сохранить?")
+try:
+    s2.password = "RYIWUhjkdbfjfgdsffds"
+except ValueError as e:
+    pass
+else:
+    raise ValueError(
+        "RYIWUhjkdbfjfgdsffds пароль НЕОЧЕНЬ, как его можно было сохранить?")
 
-# try:
-#     s2.password = "CaT"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError("CaT пароль НЕОЧЕНЬ, как его можно было сохранить?")
+try:
+    s2.password = "CaT"
+except ValueError as e:
+    pass
+else:
+    raise ValueError("CaT пароль НЕОЧЕНЬ, как его можно было сохранить?")
 
-# try:
-#     s2.password = "monkey"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError("monkey пароль НЕОЧЕНЬ, как его можно было сохранить?")
+try:
+    s2.password = "monkey"
+except ValueError as e:
+    pass
+else:
+    raise ValueError("monkey пароль НЕОЧЕНЬ, как его можно было сохранить?")
 
-# try:
-#     s2.password = "QwerTy123"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError("QwerTy123 пароль есть в слове, нельзя его использовать")
+try:
+    s2.password = "QwerTy123"
+except ValueError as e:
+    pass
+else:
+    raise ValueError("QwerTy123 пароль есть в слове, нельзя его использовать")
 
-# try:
-#     s2.password = "HelloQEWq"
-# except ValueError as e:
-#     pass
-# else:
-#     raise ValueError("HelloQEWq пароль НЕОЧЕНЬ, как его можно было сохранить?")
+try:
+    s2.password = "HelloQEWq"
+except ValueError as e:
+    pass
+else:
+    raise ValueError("HelloQEWq пароль НЕОЧЕНЬ, как его можно было сохранить?")
 
-# try:
-#     s2.password = [4, 32]
-# except TypeError as e:
-#     pass
-# else:
-#     raise TypeError("Пароль должен быть строкой")
+try:
+    s2.password = [4, 32]
+except TypeError as e:
+    pass
+else:
+    raise TypeError("Пароль должен быть строкой")
 
-# try:
-#     s2.password = 123456
-# except TypeError as e:
-#     pass
-# else:
-#     raise TypeError("Пароль должен быть строкой")
+try:
+    s2.password = 123456
+except TypeError as e:
+    pass
+else:
+    raise TypeError("Пароль должен быть строкой")
 
 print('U r hacked Pentagon')
