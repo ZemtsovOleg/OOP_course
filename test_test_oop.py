@@ -1,3 +1,4 @@
+import json
 import functools
 import sys
 import os
@@ -142,3 +143,16 @@ d = Doctor("Alex")
 print(p)  # --> Person Adam
 print(d)  # --> Doctor Alex
 d.walk()  # --> Doctor Alex can walk
+
+
+class Person1:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+
+person = Person1("John", 30)
+a = json.dumps(person.__dict__)
+print(type(json))
+print(isinstance(a, str))
+print(a)
