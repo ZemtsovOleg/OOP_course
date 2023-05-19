@@ -156,3 +156,75 @@ a = json.dumps(person.__dict__)
 print(type(json))
 print(isinstance(a, str))
 print(a)
+
+
+class Phone:
+    __slots__ = ['brand', 'model', '__dict__']
+
+
+phone1 = Phone()
+phone1.brand = 'Apple'
+phone1.model = 'iPhone 14'
+
+print(phone1.brand)
+print(phone1.model)
+phone1.price = 1000
+print(phone1.price)
+
+print(phone1.__dict__)
+
+
+class Point:
+
+    __slots__ = 'x', 'y'
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class PointSlots:
+
+    __slots__ = ('x', 'y')
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+s = Point(3, 4)
+print(s.__sizeof__())
+d = PointSlots(3, 4)
+print(d.__sizeof__())
+
+print(type(s.__slots__))
+
+
+print(phone1.__slots__)
+
+
+class Cat:
+    shared_attr = {
+        'breed': 'pers',
+        'color': 'black'
+    }
+    age = 1
+
+    def __init__(self, name, city):
+        self.__dict__ = Cat.shared_attr
+        self.name = name
+        self._city = city
+
+
+cat1 = Cat('Ivan', 'London')
+cat2 = Cat('Vika', ' London')
+cat1.weight = 5  # Добавляем параметр в ЭК
+print('cat1:', cat1.__dict__)
+print('cat2:', cat2.__dict__)
+
+print(Cat.shared_attr)
+print(Cat.__dict__)
+print(cat1.__dict__)
+print(cat1.shared_attr)
+print(cat1.color)
+print(cat1._city)
