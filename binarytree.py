@@ -52,42 +52,8 @@ class BinaryTree:
             print()
 
 
-    # def find_max_branch_sum(self) -> int:
-    #     if self.root is None:
-    #         return None
-
-    #     max_sum = float('-inf')
-
-    #     def max_branch_sum(node):
-    #         nonlocal max_sum
-
-    #         if node is None:
-    #             return 0
-
-    #         left_sum = max_branch_sum(node.left)
-    #         right_sum = max_branch_sum(node.right)
-
-    #         max_sum = max(max_sum, node.key + max(left_sum, right_sum))
-    #         return node.key + max(left_sum, right_sum)
-
-    #     max_branch_sum(self.root)
-    #     return max_sum
-
-
 one = BinaryTree(10, 5, 6, 13, 16, 11, 2, 3, 12)
 two = BinaryTree(1, 5, 6, 13, 16, 9, 2, 3, 12)
 
-# print(one.find_max_branch_sum())
-one.show_tree()
-one.show_wide_tree()
-
-
-def compare(a, b):
-    if a is None or b is None:
-        return a is b
-    return a.val == b.val and compare(a.left, b.left) and compare(a.right, b.right)
-
-
-print(compare(one.root, two.root))
-
-
+one.show_tree(one.root)
+one.show_wide_tree(one.root)
